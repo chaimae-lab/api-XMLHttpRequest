@@ -28,9 +28,9 @@ function get(){
     }
 }
 
-get()
 
-//create
+
+//create post
 function create(){
     let request = new XMLHttpRequest()
     request.open("POST","https://jsonplaceholder.typicode.com/posts")
@@ -127,9 +127,60 @@ function deleteData(){
     }
     
 
+   create()
+   search()
+   deleteData()
+   update()
 
 
-create()
-update()
-deleteData()
-search()
+/////////////////////////////////using fetch qui utilise les promises 
+
+//get post
+function getTodo(){
+
+  fetch('https://jsonplaceholder.typicode.com/posts')
+           //ktjib response 3la chkl object json 
+      .then(response => response.json())
+            //j'ai donne le nom (posts) au response 
+      .then(posts=>  {  
+                          //j'affiche tous les posts
+                   console.log(posts)
+                   for(post of posts){
+   
+                 document.getElementById("content").innerHTML +=`<p>${post.title}</p>`
+                 console.log(post.title )
+                                        }
+                         } )
+     
+}
+
+
+
+
+/////////////////////////////Axios on a pas besion de voir status code 
+
+
+function getpost(){
+
+  axios.get('https://jsonplaceholder.typicode.com/posts')
+  .then(function (response) {
+    
+   //contient tous les info de response :status ,data,,,
+   console.log(response)
+   //data contient tous les posts 
+   console.log(response.data)
+  //l'affichage des postes
+   for(post of response.data ){
+   
+    document.getElementById("content").innerHTML +=`<p>${post.title}</p>`
+    console.log(post.title )
+                           }   
+
+  })
+  .catch(function (error) {
+    // handle error
+    alert(error);
+  })
+}
+
+getpost()
